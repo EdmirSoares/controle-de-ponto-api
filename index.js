@@ -60,7 +60,7 @@ app.post('/colaboradores', (req, res) => {
 
     db.run(query, [nmFuncionario, dsEmail, dsFuncao, flAtivo, isAdmin], function (err) {
         if (err) {
-            res.status(400).json({ error: 'Usuário já cadastrado ou informações' });
+            res.status(400).json({ error: 'Colaborador já cadastrado ou informações repetidas!' });
             return;
         }
         res.json({ message: "Colaborador criado com sucesso" });
@@ -77,7 +77,7 @@ app.put('/colaboradores', (req, res) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        this.changes ? res.json({ message: 'Usuário atualizado com sucesso' }) : res.status(404).json({ message: 'Usuário não encontrado' });
+        this.changes ? res.json({ message: 'Colaborador atualizado com sucesso' }) : res.status(404).json({ message: 'Colaborador não encontrado' });
     });
 });
 
@@ -91,7 +91,7 @@ app.delete('/colaboradores', (req, res) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        this.changes ? res.json({ message: 'Usuário deletado com sucesso' }) : res.status(404).json({ message: 'Usuário não encontrado' });
+        this.changes ? res.json({ message: 'Colaborador deletado com sucesso' }) : res.status(404).json({ message: 'Colaborador não encontrado' });
     });
 });
 
