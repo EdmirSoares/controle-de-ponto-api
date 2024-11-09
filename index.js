@@ -81,6 +81,21 @@ app.put('/colaboradores', (req, res) => {
     });
 });
 
+//update flAtivo colaborador status by idFuncionario
+app.put('/colaboradores/ativo', (req, res) => {
+    const { idFuncionario, flAtivo } = req.body;
+    const query = `UPDATE colaboradores SET flAtivo = ? WHERE idFuncionario = ?`;
+
+    db.run(query, [flAtivo, idFuncionario], function (err) {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        this.changes ? res.json({ message: 'Status do colaborador atualizado com sucesso' }) : res.status(404).json({ message: 'Colaborador não encontrado' });
+    })
+
+})
+
 //delete colaborador by idFuncionario
 app.delete('/colaboradores', (req, res) => {
     const { idFuncionario } = req.body;
