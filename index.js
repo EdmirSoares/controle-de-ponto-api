@@ -53,6 +53,18 @@ app.get('/colaboradores/:idFuncionario', (req, res) => {
     });
 });
 
+app.post('/colaboradores/login', (req, res) => {
+    const { nmFuncionario, dsEmail } = req.body;
+    db.get('SELECT * FROM colaboradores WHERE nmFuncionario = ? AND dsEmail = ?', [nmFuncionario, dsEmail], (err, row) => {
+        if (err) {
+            res.status(500).json({ err: err.message });
+            return;
+        }
+        row ? res.json(row) : res.status(404).json({ message: 'Colaborador não cadastrado ou inválido' });
+    });
+});
+
+
 //create colaborador
 app.post('/colaboradores', (req, res) => {
     const { nmFuncionario, dsEmail, dsFuncao, flAtivo, isAdmin } = req.body;
