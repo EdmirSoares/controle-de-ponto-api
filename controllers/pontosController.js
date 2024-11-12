@@ -61,7 +61,7 @@ exports.updateStatus = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const { tipo, status, dataHora, idFuncionario, idPonto } = req.body;
+    let { tipo, status, dataHora, idFuncionario, idPonto } = req.body;
     const query = `UPDATE pontos SET tipo = ?, status= ?, dataHora = ?, idFuncionario = ? WHERE idPonto = ?`;
 
     if (status === 'pendente') {
