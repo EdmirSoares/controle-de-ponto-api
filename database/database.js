@@ -28,6 +28,9 @@ db.serialize(() => {
       idPonto INTEGER PRIMARY KEY AUTOINCREMENT,
       tipo TEXT NOT NULL CHECK(tipo IN ('entrada', 'saida')),
       dataHora TIMESTAMP NOT NULL,
+      status TEXT NOT NULL CHECK(status IN ( 'aprovado', 'solicitado', 'pendente', 'rejeitado', 'editado')) DEFAULT 'aprovado',
+      dsMotivo TEXT,
+      dsJustificativa TEXT,
       idFuncionario INTEGER NOT NULL,
       FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario)
     )
@@ -51,42 +54,43 @@ db.serialize(() => {
       console.error('Erro ao criar a table config_jornada:', err.message);
     }
   });
+  /* 
+    db.run(`
+      CREATE TABLE IF NOT EXISTS solicitacoes (
+        idSolicitacao INTEGER PRIMARY KEY AUTOINCREMENT,
+        tipoSolicitacao TEXT NOT NULL CHECK(tipoSolicitacao IN ('adição', 'correção', 'remoção')),
+        motivo TEXT NOT NULL,
+        dataHoraSolicitada TIMESTAMP,
+        status TEXT NOT NULL CHECK(status IN ('pendente', 'aprovada', 'rejeitada')) DEFAULT 'pendente',
+        idFuncionario INTEGER NOT NULL,
+        idPonto INTEGER,
+        FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario),
+        FOREIGN KEY (idPonto) REFERENCES pontos(idPonto)
+      )
+    `, (err) => {
+      if (err) {
+        console.error('Erro ao criar a table solicitacoes:', err.message);
+      }
+    }); */
 
-  db.run(`
-    CREATE TABLE IF NOT EXISTS solicitacoes (
-      idSolicitacao INTEGER PRIMARY KEY AUTOINCREMENT,
-      tipoSolicitacao TEXT NOT NULL CHECK(tipoSolicitacao IN ('adição', 'correção', 'remoção')),
-      motivo TEXT NOT NULL,
-      dataHoraSolicitada TIMESTAMP,
-      status TEXT NOT NULL CHECK(status IN ('pendente', 'aprovada', 'rejeitada')) DEFAULT 'pendente',
-      idFuncionario INTEGER NOT NULL,
-      idPonto INTEGER,
-      FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario),
-      FOREIGN KEY (idPonto) REFERENCES pontos(idPonto)
-    )
-  `, (err) => {
-    if (err) {
-      console.error('Erro ao criar a table solicitacoes:', err.message);
-    }
-  });
-
-  db.run(`
-    CREATE TABLE IF NOT EXISTS historico_edicoes (
-      idEdicao INTEGER PRIMARY KEY AUTOINCREMENT,
-      idPonto INTEGER NOT NULL,
-      dataHoraOriginal TIMESTAMP,
-      dataHoraEditada TIMESTAMP,
-      motivoEdicao TEXT,
-      idFuncionario INTEGER NOT NULL,
-      dataEdicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (idPonto) REFERENCES pontos(idPonto),
-      FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario)
-    )
-  `, (err) => {
-    if (err) {
-      console.error('Erro ao criar a table historico_edicoes:', err.message);
-    }
-  });
+  /*   db.run(`
+      CREATE TABLE IF NOT EXISTS historico_edicoes (
+        idEdicao INTEGER PRIMARY KEY AUTOINCREMENT,
+        idPonto INTEGER NOT NULL,
+        dataHoraOriginal TIMESTAMP,
+        dataHoraEditada TIMESTAMP,
+        motivoEdicao TEXT,
+        idFuncionario INTEGER NOT NULL,
+        dataEdicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (idPonto) REFERENCES pontos(idPonto),
+        FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario)
+      )
+    `, (err) => {
+      if (err) {
+        console.error('Erro ao criar a table historico_edicoes:', err.message);
+      }
+    });
+    */
 });
 
 module.exports = db;
