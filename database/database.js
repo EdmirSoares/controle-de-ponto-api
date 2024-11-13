@@ -43,7 +43,7 @@ db.serialize(() => {
     db.run(`
     CREATE TABLE IF NOT EXISTS config_jornada (
       idConfig INTEGER PRIMARY KEY AUTOINCREMENT,
-      idFuncionario INTEGER,
+      idFuncionario INTEGER UNIQUE,
       horaEntrada TIME,
       horaSaida TIME,
       maxAtrasoMinutos INTEGER, 
@@ -54,44 +54,6 @@ db.serialize(() => {
             console.error('Erro ao criar a table config_jornada:', err.message);
         }
     });
-
-    /* 
-      db.run(`
-        CREATE TABLE IF NOT EXISTS solicitacoes (
-          idSolicitacao INTEGER PRIMARY KEY AUTOINCREMENT,
-          tipoSolicitacao TEXT NOT NULL CHECK(tipoSolicitacao IN ('adição', 'correção', 'remoção')),
-          motivo TEXT NOT NULL,
-          dataHoraSolicitada TIMESTAMP,
-          status TEXT NOT NULL CHECK(status IN ('pendente', 'aprovada', 'rejeitada')) DEFAULT 'pendente',
-          idFuncionario INTEGER NOT NULL,
-          idPonto INTEGER,
-          FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario),
-          FOREIGN KEY (idPonto) REFERENCES pontos(idPonto)
-        )
-      `, (err) => {
-        if (err) {
-          console.error('Erro ao criar a table solicitacoes:', err.message);
-        }
-      }); */
-
-    /*   db.run(`
-        CREATE TABLE IF NOT EXISTS historico_edicoes (
-          idEdicao INTEGER PRIMARY KEY AUTOINCREMENT,
-          idPonto INTEGER NOT NULL,
-          dataHoraOriginal TIMESTAMP,
-          dataHoraEditada TIMESTAMP,
-          motivoEdicao TEXT,
-          idFuncionario INTEGER NOT NULL,
-          dataEdicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-          FOREIGN KEY (idPonto) REFERENCES pontos(idPonto),
-          FOREIGN KEY (idFuncionario) REFERENCES colaboradores(idFuncionario)
-        )
-      `, (err) => {
-        if (err) {
-          console.error('Erro ao criar a table historico_edicoes:', err.message);
-        }
-      });
-      */
 
 });
 
