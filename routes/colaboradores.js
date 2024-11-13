@@ -8,5 +8,6 @@ router.post('/', colaboradoresController.create);
 router.put('/', colaboradoresController.update);
 router.put('/ativo', colaboradoresController.updateStatus);
 router.delete('/', colaboradoresController.delete);
+router.post('/login', colaboradoresController.login);
 
 module.exports = router;

@@ -72,3 +72,14 @@ exports.delete = (req, res) => {
         this.changes ? res.json({ message: 'Colaborador desligado efetivamente' }) : res.status(404).json({ message: 'Colaborador não encontrado' });
     });
 };
+
+exports.login = (req, res) => {
+    const { dsEmail, nmFuncionario } = req.body;
+    db.get('SELECT * FROM colaboradores WHERE dsEmail = ? AND nmFuncionario = ?', [dsEmail, nmFuncionario], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        row ? res.json(row) : res.status(404).json({ message: 'E-mail ou senha inválidos' });
+    });
+}
