@@ -95,14 +95,10 @@ exports.updateStatus = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    let { tipo, status, dataHora, idFuncionario, idPonto } = req.body;
-    const query = `UPDATE pontos SET tipo = ?, status= ?, dataHora = ?, idFuncionario = ? WHERE idPonto = ?`;
+    let { dataHora, idPonto } = req.body;
+    const query = `UPDATE pontos SET status= 'editado', dataHora = ? WHERE idPonto = ?`;
 
-    if (status === 'pendente') {
-        status = 'editado';
-    }
-
-    db.run(query, [tipo, status, dataHora, idFuncionario, idPonto], function (err) {
+    db.run(query, [dataHora, idPonto], function (err) {
         if (err) {
             res.status(400).json({ error: 'Erro ao atualizar ponto' });
             return;
