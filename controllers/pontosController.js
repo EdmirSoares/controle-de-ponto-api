@@ -55,9 +55,6 @@ exports.getAllByStatus = (req, res) => {
 exports.create = (req, res) => {
     let { tipo, dataHora, idFuncionario, dsMotivo } = req.body;
     const query = `INSERT INTO pontos (tipo, dataHora, idFuncionario, dsMotivo) VALUES (?, ?, ?, ?)`;
-    if (!dsMotivo) {
-        dsMotivo = 'Registro dentro do horário';
-    }
 
     db.run(query, [tipo, dataHora, idFuncionario, dsMotivo], function (err) {
         if (err) {
@@ -104,5 +101,18 @@ exports.update = (req, res) => {
             return;
         }
         res.json({ message: "Ponto atualizado com sucesso" });
+    });
+}
+
+exports.deleteAll = (req, res) => {
+    const { idFuncionaio } = req.body;
+    const query = `DELETE FROM pontos WHERE idFuncionario = ?`;
+
+    db.run(query, [idFuncionaio], function (err) {
+        if (err) {
+            res.status(400).json({ error: 'Erro ao deletar pontos' });
+            return;
+        }
+        res.json({ message: "Pontos deletados com sucesso" });
     });
 }

@@ -9,5 +9,6 @@ router.post('/', pontosController.create);
 router.put('/status/update', pontosController.updateStatus);
 router.put('/solicitacao', pontosController.requestEdit);
 router.put('/', pontosController.update);
+router.delete('/', pontosController.deleteAll);
 
 module.exports = router;
