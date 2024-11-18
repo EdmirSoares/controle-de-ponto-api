@@ -7,7 +7,7 @@
 ## Descrição 📃
 Este projeto foi desenvolvido como uma API para controle de ponto de funcionários, desenvolvida utilizando Node.js, Express e SQLite.
 A API permite gerenciar colaboradores, registrar pontos, configurar jornadas de trabalho e gerenciar solicitações de edição de pontos, para banco foi escolhido o SQLite por sua simplicidade e facilidade de implementação.
-Esta API está sendo utilizada juntamente com o projeto --link, o qual é uma plataforma desenvolvida para facilitar o registro de ponto dos usuários, possibilitando o registro do mesmo de forma online, maiores detalhes podem ser encontrados no README do respectivo projeto.
+Esta API está sendo utilizada juntamente com o projeto [Controle de Ponto](https://github.com/EdmirSoares/controle-de-ponto), o qual é uma plataforma web desenvolvida para facilitar o registro de ponto dos usuários, possibilitando o registro do mesmo de forma online, maiores detalhes podem ser encontrados no README do respectivo projeto.
 
 ## Instalação ⚙️
 ### Pré-requisitos
